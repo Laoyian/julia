@@ -6,6 +6,8 @@ $(eval $(call git-external,libwhich,LIBWHICH,,,$(BUILDDIR)))
 LIBWHICH_OBJ_LIB := $(build_depsbindir)/libwhich
 
 $(BUILDDIR)/$(LIBWHICH_SRC_DIR)/build-compiled: $(BUILDDIR)/$(LIBWHICH_SRC_DIR)/source-extracted
+	patch -p1 -N  -d  $(BUILDDIR)/$(LIBWHICH_SRC_DIR)  < $(SRCDIR)/patches/libwhich-termux.patch || return 0;
+
 	$(MAKE) -C $(dir $<) libwhich
 	echo 1 > $@
 
