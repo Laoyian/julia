@@ -8,7 +8,9 @@ echo "arm and aarch64 need gcc-7"
 echo " arm also needs libunwind-dev"
 TERMUX_ARCH=$(dpkg --print-architecture)
 # for arm compiling src/support/hashing.c with clang creates bus errors so need to use gcc-7
-
+cd base
+sh $PWD/version_git.sh $PWD > version_git.jl.phony
+cd ../
 if [ $TERMUX_ARCH = "arm" ]; then
 echo "USE_SYSTEM_LIBUNWIND:=1" >> Make.user
 echo "DISABLE_LIBUNWIND:=0" >> Make.user
