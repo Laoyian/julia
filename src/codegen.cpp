@@ -7001,7 +7001,12 @@ extern "C" void *jl_init_llvm(void)
         .setOptLevel(jl_options.opt_level == 0 ? CodeGenOpt::None : CodeGenOpt::Aggressive)
 #endif
     ;
+// process triple fails on android need to find bug in llvm...
+#ifndef __ANDROID__
     Triple TheTriple(sys::getProcessTriple());
+#else
+    Triple TheTriple(sys::getDefaultTargetTriple());
+#endif
 #if defined(FORCE_ELF)
     TheTriple.setObjectFormat(Triple::ELF);
 #endif
